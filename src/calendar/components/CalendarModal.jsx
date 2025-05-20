@@ -3,7 +3,7 @@ import Modal from "react-modal";
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./CalendarModal.css";
-import { addHours } from "date-fns";
+import { addHours, differenceInSeconds } from "date-fns";
 import es from "date-fns/locale/es";
 
 registerLocale("es", es);
@@ -30,6 +30,14 @@ export const CalendarModal = () => {
     end: addHours(new Date(), 2),
   });
 
+  const titleClass = () => {
+    return formValues.title.length > 0 ? "is-valid" : "is-invalid";
+  };
+
+  const notesClass = () => {
+    return formValues.notes.length > 0 ? "is-valid" : "is-invalid";
+  };
+
   const onInputChange = ({ target }) => {
     setFormValues({
       ...formValues,
@@ -48,6 +56,22 @@ export const CalendarModal = () => {
     setIsOpen(false);
   };
 
+  const onSubmit = (event) => {
+    event.preventDefault();
+    const diffInSeconds = differenceInSeconds(formValues.end, formValues.start);
+    if (isNaN(diffInSeconds) || diffInSeconds <= 0) {
+      console.warn("Las fechas no son correctas");
+      return;
+    }
+
+    if (formValues.title.length <= 0) {
+      console.warn("El titulo es requerido");
+      return;
+    }
+
+    console.log(formValues);
+  };
+
   return (
     <Modal
       style={customStyles}
@@ -60,7 +84,7 @@ export const CalendarModal = () => {
     >
       <h1> Nuevo evento </h1>
       <hr />
-      <form className="container">
+      <form className="container" onSubmit={onSubmit}>
         <div className="form-group m-2 row">
           <label>Fecha y hora inicio</label>
           <DatePicker
@@ -71,6 +95,7 @@ export const CalendarModal = () => {
             showTimeSelect={true}
             locale="es"
             timeCaption="Hora"
+            required
           />
         </div>
 
@@ -85,6 +110,7 @@ export const CalendarModal = () => {
             showTimeSelect={true}
             locale="es"
             timeCaption="Hora"
+            required
           />
         </div>
 
@@ -93,12 +119,13 @@ export const CalendarModal = () => {
           <label>Titulo y notas</label>
           <input
             type="text"
-            className="form-control"
+            className={`form-control ${titleClass()}`}
             placeholder="Título del evento"
             name="title"
             autoComplete="off"
             value={formValues.title}
             onChange={onInputChange}
+            required
           />
           <small id="emailHelp" className="form-text text-muted">
             Una descripción corta
@@ -108,12 +135,13 @@ export const CalendarModal = () => {
         <div className="form-group m-2">
           <textarea
             type="text"
-            className="form-control"
+            className={`form-control ${notesClass()}`}
             placeholder="Notas"
             rows="5"
             name="notes"
             value={formValues.notes}
             onChange={onInputChange}
+            required
           ></textarea>
           <small id="emailHelp" className="form-text text-muted">
             Información adicional
