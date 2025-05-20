@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Modal from "react-modal";
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./CalendarModal.css";
 import { addHours, differenceInSeconds } from "date-fns";
 import es from "date-fns/locale/es";
-import { useUIStore } from "../../hooks";
+import { useUIStore, useCalendarStore } from "../../hooks";
+
 registerLocale("es", es);
 
 const customStyles = {
@@ -23,6 +24,8 @@ Modal.setAppElement("#root");
 
 export const CalendarModal = () => {
   const { isDateModalOpen, toggleDateModal } = useUIStore();
+  const { activeEvent } = useCalendarStore();
+
   const [formValues, setFormValues] = useState({
     title: "",
     notes: "",
@@ -33,6 +36,14 @@ export const CalendarModal = () => {
   const isValidTextClass = () => {
     return formValues.title.length > 0 ? "is-valid" : "is-invalid";
   };
+
+  useEffect(() => {
+    if (activeEvent !== null) {
+      setFormValues({
+        ...activeEvent,
+      });
+    }
+  }, [activeEvent]);
 
   const onInputChange = ({ target }) => {
     setFormValues({
@@ -60,8 +71,6 @@ export const CalendarModal = () => {
       console.warn("El titulo es requerido");
       return;
     }
-
-    console.log(formValues);
   };
 
   return (
