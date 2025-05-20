@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./CalendarModal.css";
 import { addHours, differenceInSeconds } from "date-fns";
 import es from "date-fns/locale/es";
-
+import { useUIStore } from "../../hooks";
 registerLocale("es", es);
 
 const customStyles = {
@@ -22,7 +22,7 @@ const customStyles = {
 Modal.setAppElement("#root");
 
 export const CalendarModal = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const { isDateModalOpen, toggleDateModal } = useUIStore();
   const [formValues, setFormValues] = useState({
     title: "",
     notes: "",
@@ -30,12 +30,8 @@ export const CalendarModal = () => {
     end: addHours(new Date(), 2),
   });
 
-  const titleClass = () => {
+  const isValidTextClass = () => {
     return formValues.title.length > 0 ? "is-valid" : "is-invalid";
-  };
-
-  const notesClass = () => {
-    return formValues.notes.length > 0 ? "is-valid" : "is-invalid";
   };
 
   const onInputChange = ({ target }) => {
@@ -50,10 +46,6 @@ export const CalendarModal = () => {
       ...formValues,
       [changing]: date,
     });
-  };
-
-  const onCloseModal = () => {
-    setIsOpen(false);
   };
 
   const onSubmit = (event) => {
@@ -75,8 +67,8 @@ export const CalendarModal = () => {
   return (
     <Modal
       style={customStyles}
-      isOpen={isOpen}
-      onRequestClose={onCloseModal}
+      isOpen={isDateModalOpen}
+      onRequestClose={toggleDateModal}
       contentLabel="Example Modal"
       className="modal"
       overlayClassName="modal-fondo"
@@ -119,7 +111,7 @@ export const CalendarModal = () => {
           <label>Titulo y notas</label>
           <input
             type="text"
-            className={`form-control ${titleClass()}`}
+            className={`form-control ${isValidTextClass()}`}
             placeholder="Título del evento"
             name="title"
             autoComplete="off"
@@ -135,7 +127,7 @@ export const CalendarModal = () => {
         <div className="form-group m-2">
           <textarea
             type="text"
-            className={`form-control ${notesClass()}`}
+            className={`form-control ${isValidTextClass()}`}
             placeholder="Notas"
             rows="5"
             name="notes"
@@ -148,7 +140,11 @@ export const CalendarModal = () => {
           </small>
         </div>
 
-        <button type="submit" className="btn btn-outline-primary btn-block m-2">
+        <button
+          type="submit"
+          className="btn btn-outline-primary btn-block m-2"
+          onClick={toggleDateModal}
+        >
           <i className="far fa-save"></i>
           <span> Guardar</span>
         </button>

@@ -6,7 +6,7 @@ import { addHours } from "date-fns";
 import { Navbar, CalendarEvent, CalendarModal } from "../";
 import { localizer, getMessagesES } from "../../helpers";
 import { useState } from "react";
-
+import { useUIStore } from "../../hooks";
 const myPropsEvent = [
   {
     title: "Cumpleaños del Jefe",
@@ -26,8 +26,9 @@ export const CalendarPage = () => {
   const [lastView, setLastView] = useState(
     localStorage.getItem("lastView") || "week"
   );
+  const { toggleDateModal } = useUIStore();
 
-  const eventStyleGetter = (event, start, end, isSelected) => {
+  const eventStyleGetter = () => {
     const style = {
       backgroundColor: "#347cf7",
       borderColor: "#333",
@@ -39,8 +40,8 @@ export const CalendarPage = () => {
     return { style };
   };
 
-  const onDoubleClick = (event) => {
-    console.log({ DoubleClick: event });
+  const onDoubleClick = () => {
+    toggleDateModal();
   };
 
   const onSelect = (event) => {
