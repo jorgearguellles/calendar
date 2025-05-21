@@ -7,3 +7,13 @@
   position: fixed;
   right: 25px;
 }
+
+.btn-danger-custom {
+  border-radius: 100%;
+  bottom: 25px;
+  font-size: 20px;
+  position: fixed;
+  left: 70px;
+  height: 70px;
+  width: 70px;
+}

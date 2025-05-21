@@ -6,6 +6,7 @@ import { localizer, getMessagesES } from "../../helpers";
 import { useState } from "react";
 import { useUIStore } from "../../hooks";
 import { useCalendarStore } from "../../hooks";
+import { ButtonRemove } from "../components/ButtonRemove";
 
 export const CalendarPage = () => {
   const { events, setActiveEvent } = useCalendarStore();
@@ -62,6 +63,7 @@ export const CalendarPage = () => {
 
       <CalendarModal />
       <ButtonAddNew />
+      <ButtonRemove />
     </>
   );
 };
