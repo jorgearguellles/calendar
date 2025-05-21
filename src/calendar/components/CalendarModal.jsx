@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -24,7 +24,7 @@ Modal.setAppElement("#root");
 
 export const CalendarModal = () => {
   const { isDateModalOpen, toggleDateModal } = useUIStore();
-  const { activeEvent } = useCalendarStore();
+  const { activeEvent, startSavingEvent } = useCalendarStore();
 
   const [formValues, setFormValues] = useState({
     title: "",
@@ -61,7 +61,9 @@ export const CalendarModal = () => {
 
   const onSubmit = (event) => {
     event.preventDefault();
+
     const diffInSeconds = differenceInSeconds(formValues.end, formValues.start);
+
     if (isNaN(diffInSeconds) || diffInSeconds <= 0) {
       console.warn("Las fechas no son correctas");
       return;
@@ -71,6 +73,9 @@ export const CalendarModal = () => {
       console.warn("El titulo es requerido");
       return;
     }
+
+    startSavingEvent(formValues);
+    toggleDateModal();
   };
 
   return (
@@ -149,11 +154,7 @@ export const CalendarModal = () => {
           </small>
         </div>
 
-        <button
-          type="submit"
-          className="btn btn-outline-primary btn-block m-2"
-          onClick={toggleDateModal}
-        >
+        <button type="submit" className="btn btn-outline-primary btn-block m-2">
           <i className="far fa-save"></i>
           <span> Guardar</span>
         </button>
