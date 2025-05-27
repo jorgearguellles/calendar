@@ -5,24 +5,25 @@ import {
   onUpdateEvent,
   onDeleteEvent,
 } from "../store";
+import { calendarAPI } from "../api";
 
 export const useCalendarStore = () => {
   const dispatch = useDispatch();
   const { events, activeEvent } = useSelector((state) => state.calendar);
+  const { user } = useSelector((state) => state.auth);
 
   const setActiveEvent = (calendarEvent) => {
     dispatch(onSetActiveEvent(calendarEvent));
   };
 
   const startSavingEvent = async (calendarEvent) => {
-    // TODO: backend answer start
-
-    // TODO: backend answer end
-
     if (calendarEvent._id) {
+      // await calendarAPI.put(`/events/${calendarEvent._id}`, calendarEvent);
       dispatch(onUpdateEvent({ ...calendarEvent }));
     } else {
-      dispatch(onAddNewEvent({ ...calendarEvent, _id: new Date().getTime() }));
+      const { data } = await calendarAPI.post("/events", calendarEvent);
+      console.log(data);
+      dispatch(onAddNewEvent({ ...calendarEvent, id: data.event.id, user }));
     }
   };
 
