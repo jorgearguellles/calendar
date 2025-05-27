@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import { authSlice } from "../store";
 import { calendarAPI } from "../api";
 import {
   onChecking,
@@ -26,7 +25,7 @@ const useAuthStore = () => {
       dispatch(onLogin({ name: data.name, uid: data.userId }));
     } catch (error) {
       console.log(error);
-      dispatch(onLogout("Credenciales incorrectas"));
+      dispatch(onLogout(error.response.data?.message || "Error en el login"));
       setTimeout(() => {
         dispatch(clearErrorMessage());
       }, 10);
@@ -34,8 +33,27 @@ const useAuthStore = () => {
   };
 
   const startRegister = async ({ name, email, password }) => {
-    console.log({ name, email, password });
-    dispatch(authSlice.actions.startRegister({ name, email, password }));
+    dispatch(onChecking());
+    try {
+      const { data } = await calendarAPI.post("/auth/new", {
+        name,
+        email,
+        password,
+      });
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("token-init-date", new Date().getTime());
+
+      dispatch(onLogin({ name: data.name, uid: data.userId }));
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        onLogout(error.response.data?.message || "Error en el registro")
+      );
+      setTimeout(() => {
+        dispatch(clearErrorMessage());
+      }, 10);
+    }
   };
 
   return {
