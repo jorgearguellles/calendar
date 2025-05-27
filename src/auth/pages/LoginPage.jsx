@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useForm } from "../../hooks";
-import useAuthStore from "../../hooks/useAuthStore";
+import { useAuthStore } from "../../hooks";
 import Swal from "sweetalert2";
 
 import "./LoginPage.css";
