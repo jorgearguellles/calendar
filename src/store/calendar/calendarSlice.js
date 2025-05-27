@@ -1,24 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addHours } from "date-fns";
+// import { addHours } from "date-fns";
 
-const tempEvent = {
-  _id: new Date().getTime(),
-  title: "Cumpleaños del Jefe",
-  notes: "Hay que comprar pastel",
-  start: new Date(),
-  end: addHours(new Date(), 2),
-  bgColor: "#fafafa",
-  borderColor: "#009dff",
-  user: {
-    _id: 1,
-    name: "Jorge Arias",
-  },
-};
+// const tempEvent = {
+//   _id: new Date().getTime(),
+//   title: "Cumpleaños del Jefe",
+//   notes: "Hay que comprar pastel",
+//   start: new Date(),
+//   end: addHours(new Date(), 2),
+//   bgColor: "#fafafa",
+//   borderColor: "#009dff",
+//   user: {
+//     _id: 1,
+//     name: "Jorge Arias",
+//   },
+// };
 
 export const calendarSlice = createSlice({
   name: "calendar",
   initialState: {
-    events: [tempEvent],
+    isLoadingEvents: true,
+    events: [],
     activeEvent: null,
   },
   reducers: {
@@ -43,8 +44,14 @@ export const calendarSlice = createSlice({
         state.activeEvent = null;
       }
     },
-    onLoadEvents: (state, { payload }) => {
-      state.events = payload;
+    onLoadEvents: (state, { payload = [] }) => {
+      state.isLoadingEvents = false;
+      payload.forEach((event) => {
+        const exists = state.events.some((dbEvent) => dbEvent.id === event.id);
+        if (!exists) {
+          state.events.push(event);
+        }
+      });
     },
   },
 });
