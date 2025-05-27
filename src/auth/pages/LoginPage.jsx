@@ -18,6 +18,7 @@ export const LoginPage = () => {
     loginEmail,
     loginPassword,
     onInputChange: onLoginInputChange,
+    onResetForm: onLoginResetForm,
   } = useForm(loginFormFields);
 
   const {
@@ -26,11 +27,13 @@ export const LoginPage = () => {
     registerPassword,
     registerPassword2,
     onInputChange: onRegisterInputChange,
+    onResetForm: onRegisterResetForm,
   } = useForm(registerFormFields);
 
   const loginSubmit = (event) => {
     event.preventDefault();
     console.log({ loginEmail, loginPassword });
+    onLoginResetForm();
   };
 
   const registerSubmit = (event) => {
@@ -41,6 +44,7 @@ export const LoginPage = () => {
       registerPassword,
       registerPassword2,
     });
+    onRegisterResetForm();
   };
 
   return (
