@@ -135,10 +135,6 @@ La arquitectura del proyecto está diseñada para ser escalable, permitiendo:
 - Mantener el código organizado
 - Implementar nuevas características sin afectar el código existente
 
-## 🤝 Contribución
-
-El proyecto sigue las mejores prácticas de desarrollo y está abierto a contribuciones. Se recomienda seguir las guías de estilo y documentación existentes.
-
 ## 📝 Licencia
 
 Este proyecto está bajo la Licencia MIT.
