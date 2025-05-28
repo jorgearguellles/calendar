@@ -35,10 +35,10 @@ export const useCalendarStore = () => {
     }
   };
 
-  const startDeletingEvent = async (calendarEvent) => {
+  const startDeletingEvent = async () => {
     try {
-      await calendarAPI.delete(`/events/${calendarEvent?.id}`);
-      dispatch(onDeleteEvent(calendarEvent?.id));
+      await calendarAPI.delete(`/events/${activeEvent?.id}`);
+      dispatch(onDeleteEvent(activeEvent?.id));
     } catch (error) {
       console.log(error.response?.data?.msg);
     }
