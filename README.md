@@ -102,6 +102,20 @@ La aplicación incluye pruebas unitarias y de integración para garantizar la ca
 - Componentes reutilizables
 - Diseño responsive
 
+## 📸 Capturas de Pantalla
+
+### Vista del Calendario
+
+![Vista del Calendario](./screenshots/calendar-view.png)
+
+### Formulario de Evento
+
+![Formulario de Evento](./screenshots/event-form.png)
+
+### Panel de Autenticación
+
+![Panel de Autenticación](./screenshots/auth-panel.png)
+
 ## 🔄 Flujo de Trabajo
 
 1. Autenticación de usuarios
@@ -109,7 +123,6 @@ La aplicación incluye pruebas unitarias y de integración para garantizar la ca
 3. Visualización en calendario
 4. Edición y eliminación de eventos
 5. Filtrado y búsqueda
-
 
 ## 📈 Escalabilidad
 
