@@ -4,6 +4,23 @@
 
 Calendar App es una aplicación web moderna desarrollada con React que permite a los usuarios gestionar eventos y citas de manera eficiente. La aplicación implementa un sistema de autenticación robusto y ofrece una interfaz intuitiva para la gestión de eventos.
 
+## 📸 Capturas de Pantalla
+
+### Vista del Calendario
+
+![Vista del Calendario](https://github.com/jorgearguellles/calendar/blob/main/public/1.png)
+![Vista del Calendario](https://github.com/jorgearguellles/calendar/blob/main/public/2.png)
+![Vista del Calendario](https://github.com/jorgearguellles/calendar/blob/main/public/3.png)
+![Vista del Calendario](https://github.com/jorgearguellles/calendar/blob/main/public/4.png)
+
+### Formulario de Evento
+
+![Formulario de Evento](https://github.com/jorgearguellles/calendar/blob/main/public/5.png)
+
+### Panel de Autenticación
+
+![Panel de Autenticación](https://github.com/jorgearguellles/calendar/blob/main/public/6.png)
+
 ## 🛠️ Tecnologías Principales
 
 - **Frontend Framework**: React 19
@@ -101,23 +118,6 @@ La aplicación incluye pruebas unitarias y de integración para garantizar la ca
 - Experiencia de usuario fluida
 - Componentes reutilizables
 - Diseño responsive
-
-## 📸 Capturas de Pantalla
-
-### Vista del Calendario
-
-![Vista del Calendario](https://github.com/jorgearguellles/calendar/blob/main/public/1.png)
-![Vista del Calendario](https://github.com/jorgearguellles/calendar/blob/main/public/2.png)
-![Vista del Calendario](https://github.com/jorgearguellles/calendar/blob/main/public/3.png)
-![Vista del Calendario](https://github.com/jorgearguellles/calendar/blob/main/public/4.png)
-
-### Formulario de Evento
-
-![Formulario de Evento](https://github.com/jorgearguellles/calendar/blob/main/public/5.png)
-
-### Panel de Autenticación
-
-![Panel de Autenticación](https://github.com/jorgearguellles/calendar/blob/main/public/6.png)
 
 ## 🔄 Flujo de Trabajo
 
