@@ -106,15 +106,18 @@ La aplicación incluye pruebas unitarias y de integración para garantizar la ca
 
 ### Vista del Calendario
 
-![Vista del Calendario](./screenshots/calendar-view.png)
+![Vista del Calendario](https://github.com/jorgearguellles/calendar/blob/main/public/1.png)
+![Vista del Calendario](https://github.com/jorgearguellles/calendar/blob/main/public/2.png)
+![Vista del Calendario](https://github.com/jorgearguellles/calendar/blob/main/public/3.png)
+![Vista del Calendario](https://github.com/jorgearguellles/calendar/blob/main/public/4.png)
 
 ### Formulario de Evento
 
-![Formulario de Evento](./screenshots/event-form.png)
+![Formulario de Evento](https://github.com/jorgearguellles/calendar/blob/main/public/5.png)
 
 ### Panel de Autenticación
 
-![Panel de Autenticación](./screenshots/auth-panel.png)
+![Panel de Autenticación](https://github.com/jorgearguellles/calendar/blob/main/public/6.png)
 
 ## 🔄 Flujo de Trabajo
 

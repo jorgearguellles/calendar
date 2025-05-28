@@ -17,10 +17,7 @@ export const CalendarPage = () => {
   const { toggleDateModal } = useUIStore();
 
   const eventStyleGetter = (event) => {
-    const isMyEvent =
-      event.user._id === user.id || event.user._id === user.userId;
-
-    if (isMyEvent) {
+    // const isMyEvent = event.user._id === user.id || event.user._id === user.userId;
 
     const style = {
       backgroundColor: "#347cf7",
@@ -30,9 +27,8 @@ export const CalendarPage = () => {
       color: "#fff",
     };
 
-    return { style: {} };
+    return style;
   };
-
   const onDoubleClick = () => {
     toggleDateModal();
   };
