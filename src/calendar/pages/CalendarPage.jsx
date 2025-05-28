@@ -16,18 +16,19 @@ export const CalendarPage = () => {
   );
   const { toggleDateModal } = useUIStore();
 
-  const eventStyleGetter = (event) => {
-    // const isMyEvent = event.user._id === user.id || event.user._id === user.userId;
+  const eventStyleGetter = (event, start, end, isSelected) => {
+    const isMyEvent =
+      user.uid === event.user._id || user.uid === event.user.uid;
 
     const style = {
-      backgroundColor: "#347cf7",
+      backgroundColor: isMyEvent ? "#347cf7" : "#465660",
       borderColor: "#333",
       borderRadius: "0px",
       opacity: 0.8,
       color: "#fff",
     };
 
-    return style;
+    return { style };
   };
   const onDoubleClick = () => {
     toggleDateModal();
