@@ -4,18 +4,24 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import { Navbar, CalendarEvent, CalendarModal, ButtonAddNew } from "../";
 import { localizer, getMessagesES } from "../../helpers";
 import { useState, useEffect } from "react";
-import { useUIStore } from "../../hooks";
+import { useUIStore, useAuthStore } from "../../hooks";
 import { useCalendarStore } from "../../hooks";
 import { ButtonRemove } from "../components/ButtonRemove";
 
 export const CalendarPage = () => {
+  const { user } = useAuthStore();
   const { events, setActiveEvent, startLoadingEvents } = useCalendarStore();
   const [lastView, setLastView] = useState(
     localStorage.getItem("lastView") || "week"
   );
   const { toggleDateModal } = useUIStore();
 
-  const eventStyleGetter = () => {
+  const eventStyleGetter = (event) => {
+    const isMyEvent =
+      event.user._id === user.id || event.user._id === user.userId;
+
+    if (isMyEvent) {
+
     const style = {
       backgroundColor: "#347cf7",
       borderColor: "#333",
@@ -24,7 +30,7 @@ export const CalendarPage = () => {
       color: "#fff",
     };
 
-    return { style };
+    return { style: {} };
   };
 
   const onDoubleClick = () => {

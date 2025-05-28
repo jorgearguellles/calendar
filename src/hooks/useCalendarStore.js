@@ -8,6 +8,7 @@ import {
 } from "../store";
 import { calendarAPI } from "../api";
 import { convertEventsToDateEvents } from "../helpers";
+import Swal from "sweetalert2";
 
 export const useCalendarStore = () => {
   const dispatch = useDispatch();
@@ -19,17 +20,28 @@ export const useCalendarStore = () => {
   };
 
   const startSavingEvent = async (calendarEvent) => {
-    if (calendarEvent._id) {
-      // await calendarAPI.put(`/events/${calendarEvent._id}`, calendarEvent);
-      dispatch(onUpdateEvent({ ...calendarEvent }));
-    } else {
+    try {
+      if (calendarEvent.id) {
+        await calendarAPI.put(`/events/${calendarEvent.id}`, calendarEvent);
+        dispatch(onUpdateEvent({ ...calendarEvent, user }));
+      }
+
       const { data } = await calendarAPI.post("/events", calendarEvent);
       dispatch(onAddNewEvent({ ...calendarEvent, id: data.event.id, user }));
+    } catch (error) {
+      console.log("Error guardando evento");
+      console.log(error.response.data);
+      Swal.fire("Error al guardar", error.response.data.msg, "error");
     }
   };
 
-  const startDeletingEvent = () => {
-    dispatch(onDeleteEvent());
+  const startDeletingEvent = async (calendarEvent) => {
+    try {
+      await calendarAPI.delete(`/events/${calendarEvent?.id}`);
+      dispatch(onDeleteEvent(calendarEvent?.id));
+    } catch (error) {
+      console.log(error.response?.data?.msg);
+    }
   };
 
   const startLoadingEvents = async () => {
